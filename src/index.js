@@ -6,18 +6,15 @@ function start(client) {
   client.onMessage(async (message) => {
     const { isGroupMsg, isMedia, caption, from, sender, type, mimetype, body } =
       message;
-
     if (isGroupMsg) return;
-    const isMenu = body === 'menu' || false;
-
-    signale.info(from, sender.pushname, type, body || caption);
-
-    if (isMenu) {
+    if (body === 'menu') {
+      signale.info(from, sender.pushname, type, body);
       await client.sendImage(
         from,
         path.resolve(__dirname, '../docs/example1.png')
       );
     } else {
+      signale.info(from, sender.pushname, type, caption);
       if (!isMedia) return;
       if (!caption) return;
       let stickerMetadata = {
