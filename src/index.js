@@ -10,28 +10,20 @@ const stickerMetadata = {
 
 function start(client) {
   client.onMessage(async (message) => {
-    if (message.isGroupMsg) return;
-    if (!message.isMedia) return;
-    if (!message.caption.includes('stiker')) return;
-    signale.info(
-      message.from,
-      message.sender.pushname,
-      message.type,
-      message.caption
-    );
-    if (message.mimetype) {
+    const { isGroupMsg, isMedia, caption, from, sender, type, mimetype } =
+      message;
+    if (isGroupMsg) return;
+    if (!isMedia) return;
+    if (!caption.includes('stiker')) return;
+    signale.info(from, sender.pushname, type, caption);
+    if (mimetype) {
       const mediaData = await decryptMedia(message);
-      if (message.type === 'video') {
-        await client.sendMp4AsSticker(
-          message.from,
-          mediaData,
-          null,
-          stickerMetadata
-        );
+      if (type === 'video') {
+        await client.sendMp4AsSticker(from, mediaData, null, stickerMetadata);
       } else {
         await client.sendImageAsSticker(
-          message.from,
-          `data:${message.mimetype};base64,${mediaData.toString('base64')}`,
+          from,
+          `data:${mimetype};base64,${mediaData.toString('base64')}`,
           stickerMetadata
         );
       }
