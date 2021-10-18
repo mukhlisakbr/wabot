@@ -1,6 +1,5 @@
 const { create, decryptMedia } = require('@open-wa/wa-automate');
 const signale = require('signale');
-const path = require('path');
 
 function start(client) {
   client.onMessage(async (message) => {
@@ -9,9 +8,35 @@ function start(client) {
     if (isGroupMsg) return;
     if (body === 'menu') {
       signale.info(from, sender.pushname, type, body);
-      await client.sendImage(
+      await client.sendText(
         from,
-        path.resolve(__dirname, '../docs/example1.png')
+        `
+        Send a picture or video you will get a sticker. Give a caption to use select mode or crop type (optional)
+
+        Supported caption:
+        - circle
+        - keep scale
+        - top  
+        - right top  
+        - right  
+        - right bottom  
+        - bottom  
+        - left bottom  
+        - left  
+        - left top  
+        - north  
+        - northeast  
+        - east  
+        - southeast  
+        - south  
+        - southwest  
+        - west  
+        - northwest  
+        - center  
+        - centre  
+        - entropy  
+        - attention
+      `
       );
     } else {
       signale.info(from, sender.pushname, type, caption);
@@ -24,6 +49,9 @@ function start(client) {
       switch (caption) {
         case 'circle':
           stickerMetadata = { ...stickerMetadata, circle: true };
+          break;
+        case 'keep scale':
+          stickerMetadata = { ...stickerMetadata, keepScale: true };
           break;
         case 'top':
           stickerMetadata = { ...stickerMetadata, cropPosition: 'top' };
@@ -87,9 +115,6 @@ function start(client) {
           break;
         case 'attention':
           stickerMetadata = { ...stickerMetadata, cropPosition: 'attention' };
-          break;
-        case 'keep scale':
-          stickerMetadata = { ...stickerMetadata, keepScale: true };
           break;
         default:
           break;

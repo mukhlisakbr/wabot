@@ -2,7 +2,6 @@
   "name": "wabot",
   "version": "1.0.0",
   "main": "index.js",
-  "author": "mukhlisakbr <mukhlis3389@gmail.com>",
   "license": "MIT",
   "devDependencies": {
     "eslint": "^7.2.0",
