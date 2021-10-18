@@ -18,8 +18,8 @@ function start(client) {
       if (!isMedia) return;
       if (!caption) return;
       let stickerMetadata = {
-        pack: 'bikin nya di',
-        author: 'wabot.my.id',
+        pack: 'bot stiker wa',
+        author: '@wabot_id',
       };
       switch (caption) {
         case 'circle':
