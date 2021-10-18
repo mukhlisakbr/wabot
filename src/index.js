@@ -116,24 +116,19 @@ function start(client) {
           stickerMetadata = { ...stickerMetadata, cropPosition: 'attention' };
           break;
         default:
-          if (mimetype) {
-            const mediaData = await decryptMedia(message);
-            if (type === 'video') {
-              await client.sendMp4AsSticker(
-                from,
-                mediaData,
-                null,
-                stickerMetadata
-              );
-            } else {
-              await client.sendImageAsSticker(
-                from,
-                `data:${mimetype};base64,${mediaData.toString('base64')}`,
-                stickerMetadata
-              );
-            }
-          }
           break;
+      }
+      if (mimetype) {
+        const mediaData = await decryptMedia(message);
+        if (type === 'video') {
+          await client.sendMp4AsSticker(from, mediaData, null, stickerMetadata);
+        } else {
+          await client.sendImageAsSticker(
+            from,
+            `data:${mimetype};base64,${mediaData.toString('base64')}`,
+            stickerMetadata
+          );
+        }
       }
     }
   });
