@@ -39,9 +39,8 @@ function start(client) {
       `
       );
     } else {
-      signale.info(from, sender.pushname, type, caption);
       if (!isMedia) return;
-      if (!caption) return;
+      signale.info(from, sender.pushname, type, caption);
       let stickerMetadata = {
         pack: 'bot stiker wa',
         author: '@wabot_id',
@@ -117,19 +116,24 @@ function start(client) {
           stickerMetadata = { ...stickerMetadata, cropPosition: 'attention' };
           break;
         default:
+          if (mimetype) {
+            const mediaData = await decryptMedia(message);
+            if (type === 'video') {
+              await client.sendMp4AsSticker(
+                from,
+                mediaData,
+                null,
+                stickerMetadata
+              );
+            } else {
+              await client.sendImageAsSticker(
+                from,
+                `data:${mimetype};base64,${mediaData.toString('base64')}`,
+                stickerMetadata
+              );
+            }
+          }
           break;
-      }
-      if (mimetype) {
-        const mediaData = await decryptMedia(message);
-        if (type === 'video') {
-          await client.sendMp4AsSticker(from, mediaData, null, stickerMetadata);
-        } else {
-          await client.sendImageAsSticker(
-            from,
-            `data:${mimetype};base64,${mediaData.toString('base64')}`,
-            stickerMetadata
-          );
-        }
       }
     }
   });
