@@ -1,21 +1,19 @@
 # wabot
-Just an whatsapp bot to create sticker from given image or video 
+Instantly run WhatsApp sticker maker bot on your docker with zero configuration.
 
-# setup
+# Setup
 This should be run in docker with a command like this
 ```bash
-docker run --shm-size=1gb
+docker run -d --restart always --name wabot -v /root/WABOT.data.json:/usr/src/app/WABOT.data.json ghcr.io/mukhlisakbr/wabot
 ```
-It uses alpine image so it must be light. Refer to this https://github.com/Zenika/alpine-chrome
+It uses alpine image so it must be light. Map your existing session file into docker volume to avoid scan qr in production. 
 
-# media caption
-Send image or video with this caption to use
+# How to use
+Send a picture or video you will get a sticker. Give a caption to use select mode or crop type (optional)
 
-mode:
+Supported caption:
 - circle
 - keep scale
-  
-crop:
 - top  
 - right top  
 - right  
@@ -36,3 +34,7 @@ crop:
 - centre  
 - entropy  
 - attention
+
+# Uses
+* [wa-automate-nodejs](https://github.com/open-wa/wa-automate-nodejs)
+* [alpine-chrome](https://github.com/Zenika/alpine-chrome)
