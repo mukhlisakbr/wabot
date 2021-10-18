@@ -112,12 +112,16 @@ function start(client) {
 
 create({
   sessionId: 'WABOT',
-  authTimeout: 60,
-  blockCrashLogs: true,
   disableSpins: true,
-  headless: true,
-  hostNotificationLang: 'IDID',
-  logConsole: false,
-  popup: true,
   qrTimeout: 0,
-}).then((client) => start(client));
+  authTimeout: 60,
+  cacheEnabled: false,
+  killClientOnLogout: true,
+  killProcessOnTimeout: true,
+  killProcessOnBrowserClose: true,
+  logConsoleErrors: true,
+  pQueueDefault: { concurrency: 2 },
+  restartOnCrash: start,
+})
+  .then((client) => start(client))
+  .catch((err) => signale.error(err));
