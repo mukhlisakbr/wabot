@@ -18,6 +18,7 @@ create({
   logConsoleErrors: true,
   pQueueDefault: { concurrency: 2 },
   restartOnCrash: start,
+  chromiumArgs: ['--disable-dev-shm-usage'],
 })
   .then((client) => start(client))
   .catch((err) => signale.error(err));
