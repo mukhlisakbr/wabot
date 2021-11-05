@@ -1,2 +1,2 @@
 language = "bash"
-run = "npx http-server & npm start"
+run = "npx http-server & npm i && npm start"
