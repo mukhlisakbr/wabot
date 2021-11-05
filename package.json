@@ -11,8 +11,10 @@
   },
   "dependencies": {
     "@open-wa/wa-automate": "^4.23.6",
+    "dotenv": "^10.0.0",
     "mime-types": "^2.1.33",
-    "signale": "^1.4.0"
+    "signale": "^1.4.0",
+    "universal-analytics": "^0.4.23"
   },
   "scripts": {
     "start": "node src"

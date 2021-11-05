@@ -1,19 +1,25 @@
 const signale = require('signale');
 const { decryptMedia } = require('@open-wa/wa-automate');
+const ua = require('universal-analytics');
 const menu = require('./menu');
+require('dotenv').config();
 
 module.exports = async (client, message) => {
   const { isGroupMsg, isMedia, caption, from, sender, type, mimetype, body } =
     message;
   // throw group msg
   if (isGroupMsg) return;
+  // init analytics
+  const visitor = ua(process.env.UA, from);
   // text
   if (body && body.toLowerCase() === 'menu') {
+    visitor.event('message', 'send', 'menu').send();
     signale.info(from, sender.pushname, type, body);
     await client.sendText(from, menu);
   }
   // media
   if (isMedia) {
+    visitor.event('message', 'send', 'media').send();
     signale.info(from, sender.pushname, type, caption);
     let stickerMetadata = {
       pack: 'bot stiker wa',
