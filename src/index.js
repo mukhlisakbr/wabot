@@ -1,7 +1,7 @@
 const { create } = require('@open-wa/wa-automate');
 const signale = require('signale');
+const http = require('http');
 const messageHandler = require('./messageHandler');
-require('dotenv').config();
 
 const start = (client) => {
   client.onMessage((message) => messageHandler(client, message));
@@ -27,3 +27,11 @@ create({
 })
   .then((client) => start(client))
   .catch((err) => signale.error(err));
+
+// to make repl.it keep alive
+http
+  .createServer((req, res) => {
+    res.write('Hello World!');
+    res.end();
+  })
+  .listen(8080);
