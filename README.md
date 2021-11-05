@@ -9,7 +9,9 @@ docker run -d --restart always --name wabot -v /root/WABOT.data.json:/usr/src/ap
 It uses alpine image so it must be light. Map your existing session file into docker volume to avoid scan qr in production. 
 
 # Setup [repl.it]
-create new repl with this repo and choose `bash` for the language and run `npm i` in shell. start using repl.it button
+1. create new repl with this repo and choose `bash` for the language 
+2. first start dummy web server to make repl keep alive by hit run button
+3. and then run `npm i && npm start` to start the bot
 
 # How to use
 Send a picture or video you will get a sticker. Give a caption to use select mode or crop type (optional).
