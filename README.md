@@ -1,12 +1,15 @@
 # wabot
 Instantly run WhatsApp sticker maker bot on your docker with zero configuration.
 
-# Setup
+# Setup [docker]
 This should be run in docker with a command like this
 ```bash
 docker run -d --restart always --name wabot -v /root/WABOT.data.json:/usr/src/app/WABOT.data.json mukhlis/wabot
 ```
 It uses alpine image so it must be light. Map your existing session file into docker volume to avoid scan qr in production. 
+
+# Setup [repl.it]
+create new repl with this repo and choose `bash` for the language and run `npm i` in shell. start using repl.it button
 
 # How to use
 Send a picture or video you will get a sticker. Give a caption to use select mode or crop type (optional).
