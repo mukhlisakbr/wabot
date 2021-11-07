@@ -1,5 +1,6 @@
 const { create } = require('@open-wa/wa-automate');
 const signale = require('signale');
+const path = require('path');
 const messageHandler = require('./messageHandler');
 
 const start = (client) => {
@@ -7,7 +8,8 @@ const start = (client) => {
 };
 
 create({
-  skipSessionSave: true,
+  skipSessionSave: false,
+  sessionDataPath: path.join(__dirname, '../session'),
   disableSpins: true,
   qrTimeout: 0,
   authTimeout: 0,
