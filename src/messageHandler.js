@@ -10,7 +10,7 @@ module.exports = async (client, message) => {
   // throw group msg
   if (isGroupMsg) return;
   // init analytics
-  const visitor = ua(process.env.UA, from);
+  const visitor = ua(process.env.UA, from, { strictCidFormat: false });
   // text
   if (body && body.toLowerCase() === 'menu') {
     visitor.event('message', 'send', 'menu').send();
